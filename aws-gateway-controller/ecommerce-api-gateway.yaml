@@ -1,0 +1,11 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: ecommerce-api-gateway
+  namespace: default
+spec:
+  gatewayClassName: amazon-vpc-lattice
+  listeners:
+  - name: http-api
+    protocol: HTTP
+    port: 80
