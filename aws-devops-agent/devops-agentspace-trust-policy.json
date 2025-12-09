@@ -1,0 +1,16 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": { "Service": "aidevops.amazonaws.com" },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": { "aws:SourceAccount": "141745357479" },
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:aidevops::141745357479:agentspace/*"
+        }
+      }
+    }
+  ]
+}
