@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-backend
+  namespace: default
+  labels:
+    app: nodejs-backend
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-backend
+  template:
+    metadata:
+      labels:
+        app: nodejs-backend
+        tier: backend
+    spec:
+      # Target backend node group
+      nodeSelector:
+        WorkloadType: backend
+      tolerations:
+      - key: "workload-type"
+        operator: "Equal"
+        value: "backend"
+        effect: "NoSchedule"
+      containers:
+      - name: nodejs-app
+        image: node:18-alpine
+        command: ["node"]
+        args: ["-e", "const http = require('http'); const server = http.createServer((req, res) => { res.writeHead(200, {'Content-Type': 'application/json'}); res.end(JSON.stringify({message: 'Backend API', timestamp: new Date().toISOString()})); }); server.listen(3000, () => console.log('Server running on port 3000'));"]
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+        - name: NODE_ENV
+          value: "development"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-backend-service
+  labels:
+    app: nodejs-backend
+spec:
+  selector:
+    app: nodejs-backend
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: ClusterIP

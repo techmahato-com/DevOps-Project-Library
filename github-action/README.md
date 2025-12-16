@@ -90,35 +90,6 @@ cat > trust-policy.json << EOF
 EOF
 
 
-Example
-cat > trust-policy.json << EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::141745357479:oidc-provider/token.actions.githubusercontent.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
-        },
-        "StringLike": {
-          "token.actions.githubusercontent.com:sub": "repo:YOUR_GITHUB_USERNAME/YOUR_REPO_NAME:*"
-        }
-      }
-    }
-  ]
-}
-EOF
-
-
-
-
-
-
 # Create the role
 aws iam create-role \
   --role-name GitHubActionsRole \

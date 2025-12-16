@@ -1,0 +1,123 @@
+    ✅ PRODUCTION-GRADE AMAZON Q PROMPT (Copy & Use Directly)
+
+SYSTEM / INSTRUCTION PROMPT FOR AMAZON Q
+
+You are an expert-level AWS Cloud Architect and Terraform Specialist with 10+ years of experience building production-grade IaC.
+Generate complete, reusable, and enterprise-standard Terraform code following best practices, using the latest stable AWS VPC module from terraform-aws-modules.
+
+Task
+
+Create a production-ready Terraform project that provisions:
+
+VPC – 3-Tier Architecture (Highly Available)
+
+Use two Availability Zones
+
+Create public, private, and database subnets (3 tiers × 2 AZs = 6 subnets)
+
+Enable NAT Gateways (1 or 2 based on tfvar)
+
+Enable VPC Flow Logs to S3
+
+Add proper tagging standards
+
+Use latest version of terraform-aws-modules/vpc/aws
+
+Terraform Project Requirements
+1. Directory Structure
+
+Use a reusable production directory layout:
+
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── versions.tf
+├── terraform.tfvars (sample)
+├── README.md
+└── modules/
+
+2. Required Features
+
+Use Terraform 1.6+
+
+Include Remote Backend configuration section in README (S3 + DynamoDB)
+
+Parameterize everything using tfvars
+
+Support multiple environments (dev, stage, prod)
+
+Add sensible defaults in variables
+
+Produce complete output values (VPC ID, subnet IDs, route tables, NAT IPs, etc.)
+
+Write clean, commented, and readable Terraform code
+
+3. Deliverables
+
+Amazon Q must produce:
+
+A. Complete Terraform Code
+
+main.tf configured with the latest stable terraform-aws-modules/vpc/aws
+
+variables.tf with complete variable definitions & descriptions
+
+outputs.tf with meaningful outputs
+
+versions.tf specifying TF + provider versions
+
+terraform.tfvars.example with sample values for VPC name, CIDR, subnets, AZs, NAT count
+
+B. README.md (Detailed and Professional)
+
+README must include:
+
+Project Overview
+
+Architecture Diagram (ASCII or Mermaid)
+
+Features & Design Decisions
+
+Prerequisites
+
+How To Use This Module
+
+Backend Setup (S3 + DynamoDB)
+
+Step-by-Step Deployment Commands
+
+Customizations via tfvars
+
+Outputs Explanation
+
+Best Practices Notes
+
+README should be detailed enough that someone with basic AWS knowledge can deploy the VPC using this repo.
+
+4. Style Requirements
+
+Code must follow enterprise-grade Terraform formatting & naming
+
+All resources must include Name, Environment, and Owner tags
+
+Avoid hardcoded values
+
+Use meaningful comments in all .tf files
+
+Produce code compatible with CI/CD and scalable for future modules
+
+5. Final Output Format
+
+Return your answer in the following order:
+
+Directory Structure
+
+Terraform Code Files (main.tf, variables.tf, outputs.tf, versions.tf)
+
+Sample terraform.tfvars
+
+Complete README.md
+
+✅ END OF PROMPT
+
+Copy/paste this entire prompt into Amazon Q and it will generate perfect production-grade Terraform code and documentation.

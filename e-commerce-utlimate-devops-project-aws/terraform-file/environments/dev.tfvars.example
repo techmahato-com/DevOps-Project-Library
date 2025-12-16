@@ -1,0 +1,120 @@
+# =============================================================================
+# SAMPLE TERRAFORM VARIABLES FILE
+# =============================================================================
+# Copy this file to dev.tfvars and customize the values for your environment
+# cp dev.tfvars.example dev.tfvars
+
+# =============================================================================
+# PROJECT CONFIGURATION
+# =============================================================================
+project_name = "e-commerce"
+environment  = "dev"
+region      = "us-east-1"
+
+# =============================================================================
+# VPC CONFIGURATION
+# =============================================================================
+vpc_cidr = "10.0.0.0/16"
+azs      = ["us-east-1a", "us-east-1b"]
+
+public_subnets   = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnets  = ["10.0.11.0/24", "10.0.12.0/24"]
+database_subnets = ["10.0.21.0/24", "10.0.22.0/24"]
+
+enable_nat_gateway = true
+enable_vpn_gateway = false
+enable_dns_hostnames = true
+enable_dns_support = true
+
+# =============================================================================
+# EKS CLUSTER CONFIGURATION
+# =============================================================================
+cluster_name    = "e-commerce-dev"
+cluster_version = "1.33"
+
+# Node Groups Configuration
+node_groups = {
+  # Application Node Group - For frontend applications
+  application = {
+    instance_types = ["t3a.medium"]
+    capacity_type  = "ON_DEMAND"
+    scaling_config = {
+      desired_size = 2
+      max_size     = 4
+      min_size     = 1
+    }
+    disk_size = 50
+    ami_type  = "AL2023_x86_64_STANDARD"
+    labels = {
+      Environment  = "dev"
+      NodeGroup    = "application"
+      WorkloadType = "web"
+    }
+    # NOTE: Taints removed to prevent addon scheduling issues
+    # Use node selectors or affinity rules instead for workload separation
+  }
+
+  # Backend Node Group - For Node.js and backend applications
+  backend = {
+    instance_types = ["t3a.medium"]
+    capacity_type  = "ON_DEMAND"
+    scaling_config = {
+      desired_size = 2
+      max_size     = 4
+      min_size     = 1
+    }
+    disk_size = 50
+    ami_type  = "AL2023_x86_64_STANDARD"
+    labels = {
+      Environment  = "dev"
+      NodeGroup    = "backend"
+      WorkloadType = "backend"
+    }
+  }
+
+  # Monitoring Node Group - For Prometheus, Grafana, etc.
+  monitoring = {
+    instance_types = ["t3a.medium", "t3.medium", "t3a.large", "t3.large"]
+    capacity_type  = "SPOT"
+    scaling_config = {
+      desired_size = 2
+      max_size     = 3
+      min_size     = 1
+    }
+    disk_size = 100
+    ami_type  = "AL2023_x86_64_STANDARD"
+    labels = {
+      Environment  = "dev"
+      NodeGroup    = "monitoring"
+      WorkloadType = "monitoring"
+    }
+  }
+}
+
+# =============================================================================
+# BASTION HOST CONFIGURATION
+# =============================================================================
+enable_bastion = true
+bastion_instance_type = "t3.micro"
+
+# =============================================================================
+# TAGS
+# =============================================================================
+tags = {
+  Project      = "e-commerce"
+  Environment  = "dev"
+  Owner        = "DevOps-Team"
+  ManagedBy    = "Terraform"
+  CostCenter   = "Engineering"
+  AutoShutdown = "Enabled"
+}
+
+# =============================================================================
+# CUSTOMIZATION NOTES
+# =============================================================================
+# 1. Update region and AZs based on your preferred AWS region
+# 2. Modify CIDR blocks to avoid conflicts with existing networks
+# 3. Adjust instance types based on your workload requirements
+# 4. Update node group scaling based on your capacity needs
+# 5. Customize tags according to your organization's standards
+# 6. Set enable_bastion = false if you don't need a bastion host
