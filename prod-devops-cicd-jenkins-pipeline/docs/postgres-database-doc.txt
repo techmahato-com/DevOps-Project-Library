@@ -1,0 +1,61 @@
+PostgreSQL Quick Reference
+==========================
+
+## Check Status
+systemctl status postgresql
+systemctl is-active postgresql
+
+
+## Login as postgres superuser
+sudo -u postgres psql
+
+
+## Create User
+CREATE USER sonaruser WITH PASSWORD 'sonaruser';
+
+
+## Create Database
+CREATE DATABASE sonarqubedatabase OWNER sonaruser;
+
+
+## Grant All Privileges
+GRANT ALL PRIVILEGES ON DATABASE sonarqubedatabase TO sonaruser;
+
+
+## Check All Databases
+\l
+
+## Check All Users
+\du
+
+## Check Current Connections
+\conninfo
+
+
+## Login as sonaruser to sonarqubedatabase
+psql -U sonaruser -d sonarqubedatabase -h localhost
+
+
+## Exit psql
+\q
+
+
+## Restart / Stop / Start
+systemctl restart postgresql
+systemctl stop postgresql
+systemctl start postgresql
+
+
+## View PostgreSQL logs
+journalctl -u postgresql -f
+
+
+
+## Access Issues
+85 local   all             all                                     md5
+87 host    all             all             127.0.0.1/32            md5
+89 host    all             all             ::1/128                 md5
+
+systemctl restart postgresql
+
+psql -U sonaruser -d sonarqubedatabase -h localhost

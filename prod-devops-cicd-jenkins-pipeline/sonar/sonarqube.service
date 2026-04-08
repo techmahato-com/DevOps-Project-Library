@@ -1,0 +1,22 @@
+[Unit]
+Description=SonarQube
+After=network.target
+
+[Service]
+Type=simple
+User=sonarqube
+Group=sonarqube
+Environment=JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto.x86_64
+WorkingDirectory=/opt/sonarqube
+ExecStart=/usr/lib/jvm/java-17-amazon-corretto.x86_64/bin/java \
+  -Xms512m -Xmx512m \
+  -XX:+HeapDumpOnOutOfMemoryError \
+  -Djava.net.preferIPv4Stack=true \
+  -jar /opt/sonarqube/lib/sonar-application-10.4.1.88267.jar
+Restart=on-failure
+TimeoutStartSec=300
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target

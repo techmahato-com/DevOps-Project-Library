@@ -1,0 +1,18 @@
+[Unit]
+Description=Nexus Repository Manager
+After=network.target
+
+[Service]
+Type=simple
+User=nexus
+Group=nexus
+WorkingDirectory=/opt/nexus
+Environment=INSTALL4J_JAVA_HOME_OVERRIDE=/usr/lib/jvm/java-17-amazon-corretto.x86_64
+ExecStart=/opt/nexus/bin/nexus run
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65536
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target

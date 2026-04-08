@@ -1,0 +1,47 @@
+# Jenkins Plugins List
+# Install via: jenkins-plugin-cli --plugin-file plugins.txt
+# Or via Jenkins UI: Manage Jenkins > Plugins > Available
+
+# ─── Core / Pipeline ─────────────────────────────────────────────────────────
+workflow-aggregator          # Pipeline suite (Declarative + Scripted)
+pipeline-stage-view          # Pipeline stage visualization
+pipeline-graph-analysis      # Pipeline graph
+blueocean                    # Modern pipeline UI
+
+# ─── SCM ─────────────────────────────────────────────────────────────────────
+git                          # Git SCM integration
+github                       # GitHub webhooks and status
+github-branch-source         # Multibranch pipelines from GitHub
+
+# ─── Build Tools ─────────────────────────────────────────────────────────────
+maven-plugin                 # Maven build step
+docker-workflow              # Docker Pipeline DSL (docker.build, docker.push)
+docker-plugin                # Docker agent provisioning
+
+# ─── Code Quality ────────────────────────────────────────────────────────────
+sonar                        # SonarQube Scanner integration
+dependency-check-jenkins     # OWASP Dependency Check publisher
+
+# ─── Security Scanning ───────────────────────────────────────────────────────
+# Trivy is invoked as a shell step — no dedicated plugin required
+
+# ─── AWS / ECR ───────────────────────────────────────────────────────────────
+amazon-ecr                   # ECR credential helper for Docker push
+aws-credentials              # AWS credentials binding
+
+# ─── Credentials & Security ──────────────────────────────────────────────────
+credentials                  # Credentials management
+credentials-binding          # Bind credentials to env vars in pipelines
+ssh-credentials              # SSH key credentials
+
+# ─── Notifications ───────────────────────────────────────────────────────────
+email-ext                    # Extended email notifications
+slack                        # Slack notifications (configure webhook in Jenkins)
+
+# ─── Utilities ───────────────────────────────────────────────────────────────
+timestamper                  # Add timestamps to console output
+ansicolor                    # ANSI color in console output
+build-timeout                # Abort builds that exceed a time limit
+ws-cleanup                   # Clean workspace before/after builds
+job-dsl                      # Seed job DSL for programmatic job creation
+configuration-as-code        # JCasC — manage Jenkins config as YAML
